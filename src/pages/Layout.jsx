@@ -13,42 +13,40 @@ const Layout = () => {
   const toLoad = 10;
   const [display, setDisplay] = useState([])
   const [row, setRow] = useState(toLoad)
-  const [nextLine, setNextLine] = useState([])
+  const [last, setLast] = useState(0)
   const [currentImage, setCurrentImage] = useState({}); 
+  
   useLayoutEffect(() => {
     const asyncLoad = async ()=> {
-    const toDisplay = pokemonList.slice(0, toLoad*row)
-                                 .map((pokemon) => fetch(pokemon.url)
-                                 .then(response => response.json()))
-    const syncToDisplay = await Promise.all(toDisplay)
-    setDisplay(syncToDisplay)
-    const toNextLine = pokemonList.slice(row*toLoad, row*toLoad + toLoad)
-                                  .map((pokemon) =>fetch(pokemon.url)
-                                  .then(response => response.json()))
-     const syncToNextLine = await Promise.all(toNextLine)
-     setNextLine(syncToNextLine)
-     }
-  asyncLoad();
-       
+      const toDisplay = pokemonList.slice(0, toLoad+row)
+                                   .map((pokemon) => fetch(pokemon.url)
+                                   .then(response => response.json()))
+      const syncToDisplay = await Promise.all(toDisplay)
+      setDisplay(syncToDisplay)
+    }
+    asyncLoad();
+       },[pokemonList])
  
-   },[pokemonList])
  
-   useLayoutEffect( () => {    
- 
-     setNextLine([])
+   const fetchData = async () => {
+
      const asyncLoad = async ()=> {
-       const toNextLine = pokemonList.slice(row*toLoad, row*toLoad + toLoad)
+      let checkMax = row + toLoad *2;
+      if (checkMax > pokemonList.length)
+        checkMax = pokemonList.length
+      setLast(checkMax)
+       const toNextLine = pokemonList.slice(row + toLoad, checkMax)
        .map((pokemon) =>fetch(pokemon.url).then(response => response.json()))
      
      const syncToNextLine = await Promise.all(toNextLine)
-     setNextLine(syncToNextLine)
+     return syncToNextLine
    }
-   asyncLoad();
-   },[row])
- 
-   const fetchData = () => {
-     setDisplay((display) => [...display, ...nextLine]) 
-     setRow(row + 1)
+   let stock=[]
+   if(display.slice(-1)[0].id < pokemonList.length){
+    stock = await asyncLoad()
+   }
+   setRow(row + toLoad)
+   setDisplay((display) => [...display, ...stock])
      return display;
    }
  
@@ -115,7 +113,7 @@ const Layout = () => {
             <InfiniteScroll
               dataLength={display.length}
               next={fetchData}
-              hasMore={row * 4 < pokemonList.length} // Condition pour arrêter le scroll infini
+              hasMore={last < pokemonList.length} // Condition pour arrêter le scroll infini
               loader={<h4>Loading...</h4>}
               endMessage={
                 <p style={{ textAlign: "center" }}>
@@ -149,4 +147,3 @@ const Layout = () => {
 };
 
 export default Layout;
-''
