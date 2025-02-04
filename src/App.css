@@ -1,0 +1,312 @@
+@font-face {
+    font-family: "PokemonClassic";
+    src: url("./asset/fonts/pokemon-classic/Pokemon Classic.ttf") format("truetype");
+}
+
+@font-face {
+    font-family: "PokemonSolid";
+    src: url("./asset/fonts/pokemon/Pokemon Solid.ttf") format("truetype");
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "PokemonClassic", sans-serif;
+    margin: 0;
+    background: radial-gradient(rgb(102, 102, 102), black);
+}
+
+#root {
+    width: 100%;
+}
+
+.input-div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(4, 4, 39);
+    width: 100%;
+    border-bottom: 5px double white;
+    justify-content: space-between;
+    height: 200px;
+    overflow: hidden;
+    position: fixed;
+    z-index: 10000;
+
+    #left {
+        width: 20%;
+        height: 100%;
+        background-color: red;
+        clip-path: polygon(0 0, 100% 0, 55% 100%, 0 100%)
+    }
+
+    #middle {
+        text-align: center;
+
+        h1 {
+            font-family: "PokemonSolid", sans-serif;
+            color: #FFDE00; 
+            -webkit-text-stroke: 4px #3B4CCA; 
+            font-size: 64px;
+            position: absolute;
+                    top: -85px;
+                    left: 580px;
+        }
+
+    
+        #search {
+            display: flex;
+            background: radial-gradient(rgb(155, 153, 153), #424242);
+            border-radius: 20px;
+            border: 3px double white;
+            position: absolute;
+                    top: 110px;
+                    left: 500px;
+    
+            input {
+                margin: 10px 10px;
+                height: 30px;
+                width: 400px;
+                border-radius: 20px;
+                padding-left: 20px;
+            }
+    
+            button {
+                border: none;
+                border-radius: 15px;
+                background-color: #3b4cca00;
+                cursor: pointer;
+    
+                img {
+                    height: 30px;
+                }
+            }
+        }
+    }
+
+    #right {
+        width: 30%;
+        height: 100%;
+        background-image: url('./asset/background.jpg');
+        border-left: 3px double rgb(0, 0, 0);
+        clip-path: polygon(30% 0, 100% 0, 100% 100%, 0 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.input-div:hover {
+    cursor: url('./asset/masterball.png'), auto;
+}
+
+.display-grid {
+    display: grid; 
+    grid-template-columns: repeat(4, 1fr); 
+    gap: 20px; 
+    justify-items: center; 
+    align-items: start;
+    margin-top: 250px;
+    
+    div {
+        border-radius: 15px;
+        text-align: center;
+        background-color: rgba(255, 255, 255, 0.644);
+        width: 200px;
+        height: 380px;
+        overflow: hidden;
+        margin: 20px;
+        box-shadow: 12px 12px 2px 1px rgba(0, 0, 0, 0.2);
+        transition: all 0.7s;
+        border: 8px double white;
+
+        #imgOne {
+            position: relative;
+            right: -80px;
+            top: 20px;
+            padding: 2px;
+            border-radius: 50%;
+            transition: all 0.1s;
+            border: 3px double rgba(255, 255, 255, 0.644);
+        }
+
+        #imgOne:hover {
+            cursor: pointer;
+            border: 3px double black;
+            background-color: #ffffff;
+        }
+
+        #imgTwo {
+            width: 100%;
+            height: auto;
+            border-top-right-radius: 50%;
+            border-top: 5px solid rgb(4, 4, 39);
+            border-bottom: 3px solid rgb(4, 4, 39);
+        }
+
+        #imgTwo:hover {
+            cursor: pointer;
+        }
+
+        p:hover {
+            cursor: pointer;
+        }
+
+        #types {
+            height: 75px;
+
+            p {
+                width: 80%;
+                border-radius: 0 20px 20px 0;
+                font-size: 12px;
+            }
+        }
+
+        #types:hover {
+            cursor: pointer;
+        }
+    }
+
+    div:hover {
+        scale: 1.04;
+    }
+}
+
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.7s;
+    z-index: 100000;
+
+    button {
+        position: absolute;
+            top: 30px;
+            right: 45px;
+        border-radius: 50%;
+        border: none;
+        background-color: #00000000;
+        font-size: 32px;
+        transition: all 0.4s;
+    }
+
+    button:hover {
+        scale: 1.2;
+        cursor: pointer;
+    }
+
+    .modal-content {
+        width: 80%;
+        height: 70%;
+        overflow: hidden;
+        border: 8px double white;
+        text-align: center;
+
+        #content {
+            width: 100%;
+            height: 100%;
+
+            
+            #upperData {
+                display: flex;
+                justify-content: space-around;
+                height: 70%;
+
+                #data {
+                    padding: 0 40px;
+                    width: 200px;
+                    margin: 10px;
+                    overflow: hidden;
+                    border: 8px double white;
+                    text-align: left;
+                    background-color: rgba(255, 255, 255, 0.521);
+                    font-size: 14px;
+
+                    h2 {
+                        font-family: "PokemonSolid", sans-serif;
+                        color: #FFDE00; 
+                        -webkit-text-stroke: 1px #3B4CCA; 
+                        font-size: 24px;
+                        left: 50%;
+                    }
+    
+                    #imgOne {
+                        left: 25%;
+                        position: relative;
+                        padding: 2px;
+                        border-radius: 50%;
+                        transition: all 0.1s;
+                        border: 3px double rgba(255, 255, 255, 0.644);
+                    }
+            
+                    #imgOne:hover {
+                        cursor: pointer;
+                        border: 3px double black;
+                        background-color: #ffffff;
+                    }
+
+                    audio {
+                        width: 100%;
+                    }
+                }
+    
+                #ImgTwo {
+                    width: 150px;
+                    height: auto;
+                }
+            }
+
+            button {
+                position: relative;
+                padding: 10px;
+                cursor: pointer;
+              }
+
+            #desc {
+                width: 100%;
+                position: relative;
+                padding: 10px 0;
+                background-color: rgba(52, 54, 56, 0.418);
+                border-top: 6px double black;
+                height: 200px;
+                font-size: 20px;
+                display: flex;
+                padding: 15px;
+                font-size: 14px;
+
+                div {
+                    height: 60px;
+                    overflow: hidden;
+                    border: 8px double white;
+                    text-align: left;
+                    background-color: rgba(255, 255, 255, 0.521);
+                    font-size: 14px;
+                    padding: 20px;
+                }
+
+                #description {
+                    width: 66%;
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                }
+
+                #locations {
+                    overflow: scroll;
+                    border-top-right-radius: 20px;
+                    border-bottom-right-radius: 20px;
+                    scrollbar-width: none;
+                    width: 22%;
+                }
+            }
+        }  
+    } 
+}
+  
